@@ -17,7 +17,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
-            integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+            integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+            crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 
     <style>
@@ -55,34 +56,40 @@
 </div>
 
 
-
 <script>
     $(document).ready(function () {
-        let events = @json($events);
+            {{--let events = @json($events);--}}
         var calendar = $('#calendar').fullCalendar({
-            editable: true,
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            events: events,
-            selectable: true,
-            selectHelper: true,
-            select: function (start, end, allDays) {
-                $('#booking-modal').modal('show')
-                $('#save-booking').on('click', function () {
-                    console.log("title: " + $('#title').val());
-                    console.log("start time: " + $('#start-time').val());
-                    console.log("end time: " + $('#end-time').val());
-                    let start_booking = new Date()
-                    console.log(moment(start).format('YYYY-MM-DD') + ' '+ moment($('#start-time').val()).format('HH:mm'))
-                })
-
-
-
-            }
-        })
+                editable: true,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: [
+                    {
+                        title: 'event1',
+                        start: '2022-03-21 11:30:00',
+                        end: '2022-03-21',
+                    },
+                    {
+                        title: 'event2',
+                        start: '2022-03-22',
+                        end: '2022-03-22',
+                    },
+                    {
+                        title: 'event3',
+                        start: '2022-03-23 10:30:00',
+                        end: '2022-03-23 12:30:00',
+                        // allDay : false // will make the time show
+                    }
+                ],
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end, allDays) {
+                    alert("working")
+                }
+            })
     })
 </script>
 </body>
