@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\BookingController::class, 'bookings']);
+Route::get('/', [BookingController::class, 'bookings']);
+Route::post('/', [BookingController::class, 'storeBooking'])->name('store-booking');

@@ -17,7 +17,7 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->string("title");
             $table->dateTime('start_date');
-            $table->dateTime('end_date');
+//            $table->dateTime('end_date');
             $table->timestamps();
         });
     }

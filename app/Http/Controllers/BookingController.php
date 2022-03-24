@@ -11,14 +11,37 @@ class BookingController extends Controller
     {
         $events = array();
         $bookings = Booking::all();
-        foreach ($bookings as $booking)
-        {
+        foreach ($bookings as $booking) {
             $events[] = [
                 'title' => $booking->title,
                 'start' => $booking->start_date,
-                'end' => $booking->end_date,
+//                'end' => $booking->end_date,
             ];
         }
         return view('welcome', ['events' => $events]);
+    }
+
+    public function storeBooking(Request $request)
+    {
+//        for ($i = 0; $i < $request->slots; $i++) {
+//            $booking = new Booking();
+//            $booking->title = $request->title;
+//            $booking->start_date = $request->slots[$i];
+////            $booking->end_date = $request->slots[$i];
+//            $booking->save();
+//
+//        }
+
+        foreach ($request->slots as $slot)
+        {
+            $booking = new Booking();
+            $booking->title = $request->title;
+            $booking->start_date = $slot;
+//            $booking->end_date = $request->slots[$i];
+            $booking->save();
+        }
+
+        return response()->json("done");
+
     }
 }
