@@ -14,5 +14,7 @@ use App\Http\Controllers\BookingController;
 |
 */
 
-Route::get('/', [BookingController::class, 'bookings']);
-Route::post('/', [BookingController::class, 'storeBooking'])->name('store-booking');
+Route::get('/', [BookingController::class, 'bookings'])->name("get-events");
+Route::post('/store-booking', [BookingController::class, 'storeBooking'])->name('store-booking');
+Route::post('/update-booking', [BookingController::class, 'updateBooking'])->name('update-booking');
+Route::post('/delete-booking', [BookingController::class, 'deleteBooking'])->name('delete-booking');

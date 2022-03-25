@@ -7,41 +7,52 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    public function bookings()
+    public function bookings(Request $request)
     {
-        $events = array();
-        $bookings = Booking::all();
-        foreach ($bookings as $booking) {
-            $events[] = [
-                'title' => $booking->title,
-                'start' => $booking->start_date,
-//                'end' => $booking->end_date,
-            ];
+        if($request->ajax())
+        {
+            $events = array();
+            $bookings = Booking::all();
+            foreach ($bookings as $booking) {
+                $events[] = [
+                    'id' => $booking->id,
+                    'title' => $booking->title,
+                    'start' => $booking->start_date,
+                ];
+            }
+            return response()->json($events);
         }
-        return view('welcome', ['events' => $events]);
+
+        return view('welcome');
+//        return view('welcome', ['bookings' => $events]);
     }
 
     public function storeBooking(Request $request)
     {
-//        for ($i = 0; $i < $request->slots; $i++) {
-//            $booking = new Booking();
-//            $booking->title = $request->title;
-//            $booking->start_date = $request->slots[$i];
-////            $booking->end_date = $request->slots[$i];
-//            $booking->save();
-//
-//        }
-
+        $arr = [];
         foreach ($request->slots as $slot)
         {
             $booking = new Booking();
             $booking->title = $request->title;
             $booking->start_date = $slot;
-//            $booking->end_date = $request->slots[$i];
             $booking->save();
+            array_push($arr, $booking);
         }
 
-        return response()->json("done");
+        return response()->json([
+            'bookings' => $arr
+        ]);
 
+    }
+
+    public function updateBooking(Request $request)
+    {
+
+    }
+
+    public function deleteBooking(Request $request)
+    {
+        $booking = Booking::find($request->id)->delete();
+        return response()->json($booking);
     }
 }
