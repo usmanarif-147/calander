@@ -23,7 +23,7 @@ class BookingController extends Controller
             return response()->json($events);
         }
 
-        return view('welcome');
+        return view('calendar_v3');
 //        return view('welcome', ['bookings' => $events]);
     }
 
